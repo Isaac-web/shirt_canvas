@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber"
-import { Center, Environment } from "@react-three/drei";
+import { Center } from "@react-three/drei";
 
 import Shirt from "./Shirt";
 import CameraRig from "./CameraRig";
@@ -25,8 +25,8 @@ const AppCanvas = () => {
                 shadows
             >
                 <Suspense fallback={null}>
-                    <ambientLight intensity={0.5} />
-                    <Environment preset="city" />
+                    <ambientLight intensity={0.55} />
+                    <directionalLight intensity={0.8} position={[-0.5, 1.2, 0.5]} />
                     <Center>
                         <Backdrop />
                         <CameraRig>
