@@ -24,7 +24,7 @@ const CameraRig = ({ children }) => {
         );
 
 
-        let defaultPosition = [0, 0, 0];
+        let defaultPosition = [0, 0.05, 0];
         if (isMobileScreen) {
             if (snap.intro) {
                 defaultPosition = [0, -0.5, 0]
@@ -38,19 +38,7 @@ const CameraRig = ({ children }) => {
             }
         }
 
-
-
-
-        //large screens - home page
-        //lage screens - customizer
-
-
-
-
         easing.damp3(group.current.position, defaultPosition, 0.25, delta)
-
-
-
     })
 
     return (

@@ -17,15 +17,18 @@ const AppCanvas = () => {
 
     return (
         <div className={`${snap.intro ? "absolute" : "fixed"} top-0 w-full h-[100vh] -z-10`}>
-            <Canvas camera={{
-                position: cameraPosition,
-                fov: 20
-            }}>
+            <Canvas
+                camera={{
+                    position: cameraPosition,
+                    fov: 20
+                }}
+                shadows
+            >
                 <Suspense fallback={null}>
                     <ambientLight intensity={0.5} />
                     <Environment preset="city" />
                     <Center>
-                        {/* <Backdrop /> */}
+                        <Backdrop />
                         <CameraRig>
                             <Shirt />
                         </CameraRig>
