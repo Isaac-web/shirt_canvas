@@ -3,7 +3,6 @@ import React from 'react'
 const Button = ({ children, className, style, onClick, variant, ...rest }) => {
     const classNames = `text-bold bg-black text-white rounded-lg px-5 py-2 hover:opacity-90 ${className}`
 
-
     const styles = {
         ...style
     }

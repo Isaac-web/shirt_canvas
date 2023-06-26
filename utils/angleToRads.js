@@ -1,0 +1,1 @@
+export default (angle) => (Math.PI * angle) / 180;

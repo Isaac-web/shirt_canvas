@@ -2,18 +2,24 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeAnimation, headContainerAnimation, headContentAnimation, headTextAnimation } from "@config/motion";
+import { useSnapshot } from "valtio";
+
+
 import Button from "@components/Button";
+import state from "@store";
+
 
 const Home = () => {
+    const snap = useSnapshot(state);
 
     const handlePageChange = () => {
-        console.log("Handle page change");
+        state.intro = false
     }
 
 
     return (
         <AnimatePresence>
-            <motion.section {...headContainerAnimation} className="home">
+            {snap.intro && <motion.section {...headContainerAnimation} className="home absolute">
                 <motion.div {...headTextAnimation}>
                     <h1 className="head-text uppercase">Let's <br /> Do It.</h1>
                     <motion.div {...headContentAnimation} className="mb-4">
@@ -26,10 +32,16 @@ const Home = () => {
                     </motion.div>
 
                     <motion.div {...headContainerAnimation} {...fadeAnimation}>
-                        <Button onClick={handlePageChange} className={"py-3 px-6"}>Customize it</Button>
+                        <Button
+                            onClick={handlePageChange}
+                            className={"py-3 px-6"}
+                            style={{ backgroundColor: snap.color, color: "#000000" }}
+                        >
+                            Customize it
+                        </Button>
                     </motion.div>
                 </motion.div>
-            </motion.section>
+            </motion.section>}
         </AnimatePresence >
     )
 }

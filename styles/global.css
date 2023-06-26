@@ -20,7 +20,7 @@ html {
 }
 
 .nav {
-  @apply w-fit  items-center xl:py-4 xl:px-36 sm:p-4 p-6 max-xl:gap-7 z-10 w-full pt-4 pb-8 px-10 flex justify-between;
+  @apply w-fit px-3  items-center xl:py-4 xl:px-36 sm:p-4 p-6 max-xl:gap-7 z-10 w-full pt-4 pb-8 md:px-10 flex justify-between z-30;
 }
 
 .home {
