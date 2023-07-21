@@ -1,12 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { fadeAnimation, headContainerAnimation, headContentAnimation, headTextAnimation } from "@config/motion";
+import { fadeAnimation, headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation } from "@config/motion";
 import { useSnapshot } from "valtio";
 
 
 import Button from "@components/Button";
 import state from "@store";
+import AddToCartSheet from "@components/AddToCartSheet";
 
 
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
 
     return (
         <AnimatePresence>
-            {snap.intro && <motion.section {...headContainerAnimation} className="home absolute">
+            {snap.intro && !snap.addToCart && <motion.section {...headContainerAnimation} className="home absolute">
                 <motion.div {...headTextAnimation}>
                     <h1 className="head-text uppercase">Let's <br /> Do It.</h1>
                     <motion.div {...headContentAnimation} className="mb-4">
@@ -31,7 +32,15 @@ const Home = () => {
                         </p>
                     </motion.div>
 
-                    <motion.div {...headContainerAnimation} {...fadeAnimation}>
+                    <motion.div className="flex gap-2" {...headContainerAnimation} {...fadeAnimation}>
+                        <Button
+                            onClick={() => state.addToCart = true}
+                            className={"py-3 px-6"}
+                            style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
+                        >
+                            Add To Cart
+                        </Button>
+
                         <Button
                             onClick={handlePageChange}
                             className={"py-3 px-6"}
@@ -42,6 +51,11 @@ const Home = () => {
                     </motion.div>
                 </motion.div>
             </motion.section>}
+
+
+            {snap.addToCart && <motion.div {...slideAnimation("left")}>
+                <AddToCartSheet />
+            </motion.div>}
         </AnimatePresence >
     )
 }

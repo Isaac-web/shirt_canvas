@@ -1,0 +1,7 @@
+[
+  { "id": "sm", "value": "sm", "label": "Small" },
+  { "id": "md", "value": "md", "label": "Medium" },
+  { "id": "lg", "value": "lg", "label": "Large" },
+  { "id": "xl", "value": "xl", "label": "Extra Large" },
+  { "id": "xxl", "value": "xxl", "label": "Extra extra Large" }
+]

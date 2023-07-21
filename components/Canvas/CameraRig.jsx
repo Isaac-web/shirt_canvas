@@ -1,20 +1,20 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useFrame } from "@react-three/fiber"
 import { easing } from "maath";
 import { useSnapshot } from "valtio";
-import state from "@store";
 
+import state from "@store";
 import angleToRads from "@utils/angleToRads";
+import useWindowSize from "@customHooks/useWindowSize";
 
 
 const CameraRig = ({ children }) => {
     const group = useRef(null);
-    const snap = useSnapshot(state)
+    const snap = useSnapshot(state);
+    const { isMobileScreen } = useWindowSize();
 
 
     useFrame((state, delta) => {
-        const isMobileScreen = window.innerWidth <= 600;
-
         let { x, y } = state.mouse;
         easing.dampE(
             group.current.rotation,

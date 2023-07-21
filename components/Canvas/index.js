@@ -9,11 +9,13 @@ import CameraRig from "./CameraRig";
 import Backdrop from "./Backdrop";
 import { useSnapshot } from "valtio";
 import state from "@store";
+import useScreenSize from "@customHooks/useWindowSize"
 
 const AppCanvas = () => {
     const snap = useSnapshot(state);
-    const isMobileScreen = window.innerWidth <= 600;
+    const { isMobileScreen } = useScreenSize();
     let cameraPosition = isMobileScreen ? [0, 0, 4] : [0, 0, 2.2]
+
 
     return (
         <div className={`${snap.intro ? "absolute" : "fixed"} top-0 w-full h-[100vh] -z-10`}>

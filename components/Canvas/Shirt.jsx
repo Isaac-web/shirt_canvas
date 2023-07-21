@@ -10,15 +10,19 @@ export function Shirt(props) {
     const snap = useSnapshot(state);
     const { nodes, materials } = useGLTF('/shirt_baked-transformed.glb')
     const logoTexture = useTexture(snap.logoDecal);
+    const logoDecalRef = useRef(null);
 
     useFrame((state, delta) => {
         easing.dampC(materials.lambert1.color, snap.color, 0.25, delta);
-
+        if (snap.isLogoTexture) {
+            easing.dampC(logoDecalRef.current.scale, snap.logoScale, 0.1, delta);
+            easing.dampC(logoDecalRef.current.position, snap.logoPosition, 0.1, delta);
+        }
     });
 
 
     return (
-        <group {...props} dispose={null}>
+        <group {...props} dispose={null} key={JSON.stringify(snap)}>
             <mesh
                 castShadow
                 geometry={nodes.T_Shirt_male.geometry}
@@ -26,14 +30,15 @@ export function Shirt(props) {
                 material-roughness={1}
                 dispose={null}
             >
-                <Decal
+                {snap.isLogoTexture && <Decal
+                    ref={logoDecalRef}
                     map={logoTexture}
-                    scale={0.15}
-                    position={[0, 0.1, 0.15]}
+                    scale={snap.logoScale}
+                    position={snap.logoPosition}
                     rotation={[0, 0, 0]}
                     depthTest={false}
                     deptWrite={true}
-                />
+                />}
             </mesh>
         </group>
     )

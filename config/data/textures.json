@@ -1,0 +1,5 @@
+[
+  { "id": "cotton", "value": "cotton", "label": "Cotton" },
+  { "id": "nylon", "value": "nylon", "label": "Nylon" },
+  { "id": "polyester", "value": "polyester", "label": "Polyester" }
+]
