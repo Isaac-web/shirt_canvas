@@ -1,14 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import CartCanvas from "./CartCanvas";
 import sizes from "@config/data/sizes.json"
 import textures from "@config/data/textures.json"
+import { useSnapshot } from "valtio";
+import checkout from "@store/checkout";
 
-const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition }) => {
+const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition, texture, onDelete }) => {
     const [itemsCount, setItemsCount] = useState(quantity)
     const [sizeValue, setSizeValue] = useState(size);
     const [textureValue, setTextureValue] = useState("cotton");
+    const checkoutSnap = useSnapshot(checkout);
+    const router = useRouter();
+
+
 
     const handleInc = () => setItemsCount(itemsCount + 1)
 
@@ -24,6 +32,26 @@ const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition }) 
 
     const handleChangeTexture = (texture) => {
         setTextureValue(texture);
+    }
+
+
+    const handleCheckout = () => {
+        //add checkout data
+        const data = {
+            color,
+            quantity,
+            size,
+            logo,
+            logoScale,
+            logoPosition,
+            texture
+        };
+        for (let item in data) {
+            checkoutSnap[item] = data[item];
+        }
+
+        router.push("/checkout");
+
     }
 
 
@@ -82,8 +110,13 @@ const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition }) 
 
 
             <div className="flex gap-2 mb-1">
-                <button className="border-2 border-black py-2 px-5 flex-1 transition-all ease-out hover:text-red-500 hover:border-red-500">Delete</button>
-                <button className="py-2 px-5 flex-1 text-white bg-black hover:opacity-80 transition-all ease-out">Checkout</button>
+                <button onClick={onDelete} className="border-2 border-black py-2 px-5 flex-1 transition-all ease-out hover:text-red-500  hover:border-red-500">Delete</button>
+                <button
+                    className="py-2 px-5 flex-1 text-white bg-black hover:opacity-80 transition-all ease-out"
+                    onClick={handleCheckout}
+                >
+                    Checkout
+                </button>
             </div>
         </div>
     )

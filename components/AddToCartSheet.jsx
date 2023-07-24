@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
 import { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
@@ -10,6 +10,7 @@ import textures from "@config/data/textures.json"
 import state from '@store';
 import AppRadioButton from './AppRadioButton';
 import storage from "@utils/storage";
+import { AppContext } from './Context/AppContext';
 
 
 
@@ -20,6 +21,7 @@ const AddToCartSheet = () => {
     const [texture, setTexture] = useState("cotton")
     const [inputShown, setInputShown] = useState(false);
     const snap = useSnapshot(state);
+    const appContext = useContext(AppContext);
 
 
     useEffect(() => {
@@ -41,6 +43,7 @@ const AddToCartSheet = () => {
 
     const handleAddToCart = () => {
         const data = {
+            id: Date.now(),
             quantity,
             size,
             texture,
@@ -51,13 +54,15 @@ const AddToCartSheet = () => {
             logoScale: snap.logoScale,
         }
 
-        let cart = storage.getItem("cart");
-        if (!cart) storage.setItem("cart", JSON.stringify([]))
+        // let cart = storage.getItem("cart");
+        // if (!cart) storage.setItem("cart", JSON.stringify([]))
 
-        cart = storage.getItem("cart");
-        cart.push(data)
-        storage.setItem("cart", JSON.stringify(cart));
+        // cart = storage.getItem("cart");
+        // cart.push(data)
+        // storage.setItem("cart", JSON.stringify(cart));
 
+        console.log(data);
+        appContext.addCartItem(data);
         state.addToCart = false;
     }
 

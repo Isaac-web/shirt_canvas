@@ -1,6 +1,10 @@
+
+
 import Navbar from "@components/Navbar"
 import AppSessionProvider from "@components/Context/AppSessionProvider"
+import AppContext from "@components/Context/AppContext";
 import "@styles/global.css"
+
 
 export const metadata = {
   title: 'Next.js',
@@ -11,10 +15,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="transition-all ease-in" suppressHydrationWarning>
-        <AppSessionProvider>
-        <Navbar />
-        {children}
-        </AppSessionProvider>
+
+        <AppContext>
+          <AppSessionProvider>
+            <Navbar />
+            {children}
+          </AppSessionProvider>
+        </AppContext>
       </body>
     </html>
   )

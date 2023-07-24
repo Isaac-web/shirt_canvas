@@ -25,10 +25,6 @@ const NavBarAuth = () => {
                             </div>
                         </div>
 
-                        <div className="py-5">
-                            <Button className="w-full bg-white border-2 border-gray-500" style={{ fontWeight: "inherit", color: "#000000" }}>My Account</Button>
-                        </div>
-
                         <div className="w-full h-[1px] bg-gray-200 my-1" />
 
                         <div className="py-5">

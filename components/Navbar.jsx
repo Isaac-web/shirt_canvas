@@ -6,34 +6,55 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useSnapshot } from "valtio";
+import { HiOutlineShoppingCart } from "react-icons/hi";
+import { useContext } from "react";
 
 
-import Button from "./Button";
+import { AppContext } from "@components/Context/AppContext";
+import storage from "@utils/storage";
 import state from "@store";
+import Button from "./Button";
 import AuthPopper from "./AuthPopper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+    const appContext = useContext(AppContext);
     const snap = useSnapshot(state);
+    const [cart, setCart] = useState(null);
     const [authPopper, setAuthPopper] = useState(false);
     const { data: session } = useSession();
+
 
     return (
         <AnimatePresence>
             {snap.intro && <motion.nav {...slideAnimation("down")} className="nav">
                 <motion.div {...slideAnimation("left")}>
+                    <Link href={"/"}>
                     <Image src="/threejs.png" alt="Logo" width={35} height={35} />
+                    </Link>
                 </motion.div>
-
                 <div className="relative">
                     {
                         session?.user ?
-                            <div
-                                className="w-12 h-12 rounded-full flex items-center justify-center glassmorphism"
-                                onClick={() => setAuthPopper(prev => !prev)}
-                                style={{ backgroundColor: snap.color }}
-                            >
-                                <Image src={session?.user.image} alt="Logo" width={40} height={40} className="rounded-full" />
+                            <div className="flex flex-row gap-x-4">
+                                {<Link href="/cart">
+                                    <div className="mt-4 relative ">
+                                        <div className="p-1 px-2 rounded-full bg-red-500 absolute -top-4 -right-3 text-xs tex-white font-semibold">
+                                            {appContext.cartItems?.length}
+                                        </div>
+                                        <button>
+                                            <HiOutlineShoppingCart size={24} />
+                                        </button>
+                                    </div>
+                                </Link>}
+                                <div
+                                    className="w-12 h-12 rounded-full flex items-center justify-center glassmorphism"
+                                    onClick={() => setAuthPopper(prev => !prev)}
+                                    style={{ backgroundColor: snap.color }}
+                                >
+
+                                    <Image src={session?.user.image} alt="Logo" width={40} height={40} className="rounded-full" />
+                                </div>
                             </div> :
                             <Link href="/signin">
                                 <Button>Login</Button>

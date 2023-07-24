@@ -5,6 +5,8 @@ import { Suspense, useEffect } from "react";
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
 import { easing } from "maath";
 import { Color } from "three";
+import { useSnapshot } from "valtio";
+import state from "@store";
 
 const CartCanvas = ({ color, logo, logoPosition, logoScale }) => {
     // useEffect(() => { }, [color]);
@@ -27,12 +29,13 @@ export default CartCanvas
 
 
 export function Shirt(props) {
-    const { color, logo, texture, logoPosition, logoScale } = props;
+    const { color, logo, logoPosition, logoScale } = props;
     const { nodes, materials } = useGLTF('/shirt_baked-transformed.glb');
     const logoTexture = useTexture(logo) || useTexture("/threejs.png");
+    const snap = useSnapshot(state);
 
 
-    materials.lambert1.color = new Color(color);
+    materials.lambert1.color = new Color(color) || snap.color;
 
     const material = materials.lambert1.clone();
     material.color = new Color(color);
