@@ -39,7 +39,7 @@ const Navbar = () => {
                             <div className="flex flex-row gap-x-4">
                                 {<Link href="/cart">
                                     <div className="mt-4 relative ">
-                                        <div className="p-1 px-2 rounded-full bg-red-500 absolute -top-4 -right-3 text-xs tex-white font-semibold">
+                                        <div className="p-1 px-2 rounded-full bg-red-500 text-white absolute -top-4 -right-3 text-xs tex-white font-semibold">
                                             {appContext.cartItems?.length}
                                         </div>
                                         <button>

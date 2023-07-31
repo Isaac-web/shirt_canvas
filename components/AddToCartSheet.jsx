@@ -32,7 +32,7 @@ const AddToCartSheet = () => {
 
 
     const handleDec = () => {
-        if (quantity > 2) {
+        if (quantity > 1) {
             setQuantity(prev => prev - 1);
         }
     }
@@ -54,14 +54,6 @@ const AddToCartSheet = () => {
             logoScale: snap.logoScale,
         }
 
-        // let cart = storage.getItem("cart");
-        // if (!cart) storage.setItem("cart", JSON.stringify([]))
-
-        // cart = storage.getItem("cart");
-        // cart.push(data)
-        // storage.setItem("cart", JSON.stringify(cart));
-
-        console.log(data);
         appContext.addCartItem(data);
         state.addToCart = false;
     }

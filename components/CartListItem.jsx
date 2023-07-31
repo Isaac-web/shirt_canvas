@@ -9,7 +9,7 @@ import textures from "@config/data/textures.json"
 import { useSnapshot } from "valtio";
 import checkout from "@store/checkout";
 
-const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition, texture, onDelete }) => {
+const CartListItem = ({ id, color, quantity, size, logo, logoScale, logoPosition, texture, onDelete }) => {
     const [itemsCount, setItemsCount] = useState(quantity)
     const [sizeValue, setSizeValue] = useState(size);
     const [textureValue, setTextureValue] = useState("cotton");
@@ -38,13 +38,14 @@ const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition, te
     const handleCheckout = () => {
         //add checkout data
         const data = {
+            id,
             color,
             quantity,
             size,
             logo,
             logoScale,
             logoPosition,
-            texture
+            texture,
         };
         for (let item in data) {
             checkoutSnap[item] = data[item];
@@ -56,7 +57,7 @@ const CartListItem = ({ color, quantity, size, logo, logoScale, logoPosition, te
 
 
     return (
-        <div className="bg-white w-1/3 shadow-md p-5 rounded-md">
+        <div className="bg-white w-full md:w-1/3 shadow-md p-5 rounded-md">
             <CartCanvas color={color} logo={logo} logoPosition={logoPosition} logoScale={logoScale} />
             <div className="w-full h-[1px] bg-slate-100 my-1 mb-2" />
 
