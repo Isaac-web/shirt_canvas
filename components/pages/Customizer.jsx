@@ -13,6 +13,7 @@ import ColorPicker from "@components/ColorPicker";
 import { useState } from "react";
 import FilePicker from "@components/FilePicker";
 import LogoEditor from "@components/LogoEditor";
+import FullTextureEditor from "@components/FullTextureEditor";
 
 const Customizer = () => {
     const snap = useSnapshot(state);
@@ -28,7 +29,6 @@ const Customizer = () => {
         if (activePicker === tab.name) setActivePicker(null)
         else setActivePicker(tab.name)
     }
-
 
     const handleColorChange = (color) => {
         state.color = color;
@@ -81,9 +81,18 @@ const Customizer = () => {
                                 <LogoEditor onClose={() => setActiveButtomTab(null)} />}
                         </div>
 
+
+                        <div className="absolute bottom-24 flex justify-center w-full">
+                            {activeBottomTab === "stylishShirt" && !snap.intro &&
+                                <FullTextureEditor onClose={() => setActiveButtomTab(null)}/>
+                            }
+                        </div>
+
                     <motion.div className="fixed right-5 top-5" {...slideAnimation("right")}>
                         <Button onClick={handleBackNavigation} style={{ backgroundColor: snap.color, color: "#000000" }}>Back</Button>
                     </motion.div>
+
+
                 </div>
             }
 
