@@ -6,21 +6,13 @@ import Link from 'next/link';
 
 import CartListItem from '@components/CartListItem'
 import { AppContext } from '@components/Context/AppContext';
-import storage from '@utils/storage'
+import {useSession} from "next-auth/react";
 
-
-// const items = [
-//     { _id: 1, title: "Round-Neck", color: "#000000", quantity: 2, size: "sm" },
-//     { _id: 2, title: "Round-Neck", color: "#DDDAED", quantity: 5, size: "lg" },
-//     { _id: 3, title: "Round-Neck", color: "#EA0FF1", quantity: 1, size: "xl" },
-// ]
 
 const Cart = () => {
-    // const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
     const appContext = useContext(AppContext);
-
-    // console.log(appContext);
+    const {data: session} = useSession();
 
 
     useEffect(() => {
@@ -32,9 +24,6 @@ const Cart = () => {
         appContext.removeCartItem(item)
     }
 
-
-
-
     return (
         <section className="w-full min-h-[89.8vh] bg-gray-100 py-10">
             {loading &&
@@ -45,7 +34,7 @@ const Cart = () => {
             {!loading && <div className="container max-w-5xl m-auto w-ful">
                 {/* Cart Profile Section */}
                 <div className="flex flex-start gap-3 items-center mb-16">
-                    <Image alt="Img" src="/assets/logo-tshirt.png" width={38} height={38} className="rounded-full bg-gray-300" />
+                    <Image alt="Img" src={session?.user.image} width={38} height={38} className="rounded-full bg-gray-300" />
                     <h4 className="text-2xl font-semibold">Your Shopping Cart</h4>
                 </div>
 
