@@ -9,8 +9,7 @@ import {
   slideAnimation,
 } from "@config/motion";
 import { useSnapshot } from "valtio";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import Button from "@components/Button";
 import state from "@store";
@@ -18,7 +17,6 @@ import AddToCartSheet from "@components/AddToCartSheet";
 
 const Home = () => {
   const snap = useSnapshot(state);
-  const router = useRouter();
   const { data: session } = useSession();
 
   const handlePageChange = () => {
@@ -26,7 +24,7 @@ const Home = () => {
   };
 
   const handleAddToCart = () => {
-    if (!session?.user) return router.push("/signin");
+    if (!session?.user) return signIn();
 
     state.addToCart = true;
   };

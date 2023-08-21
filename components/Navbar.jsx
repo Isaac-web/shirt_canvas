@@ -62,7 +62,7 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              !pathname.toLowerCase().startsWith("auth/signin") && (
+              !pathname.toLowerCase().startsWith("/auth") && (
                 <Button onClick={() => signIn()}>Login</Button>
               )
             )}

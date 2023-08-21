@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "@utils/db";
+import User from "@models/User";
+import { verifyPassword } from "@utils/crypt";
 
 const handler = NextAuth({
   providers: [
@@ -11,18 +13,22 @@ const handler = NextAuth({
         email: { type: "text", placeholder: "email" },
         password: { type: "password", placeholder: "password" },
       },
-      async authorize(credentials) {
-        console.log("Email", credentials.email);
-        console.log("Password", credentials.password);
-
-        //connect to db
+      async authorize(credentials, req) {
         connectToDb();
 
-        //make api request
+        try {
+          const user = await User.findOne({ email: credentials.email });
+          if (!user) return null;
 
-        //if the user exists, return the user
+          delete user?.password;
+          console.log(user);
 
-        //else return null
+          return true;
+        } catch (error) {
+          console.error(error);
+
+          return null;
+        }
       },
     }),
     GoogleProvider({
@@ -35,9 +41,28 @@ const handler = NextAuth({
       return baseUrl;
     },
     async signIn({ profile }) {
-      return true;
+      connectToDb();
+
+      try {
+        let user = await User.findOne({ email: profile.email });
+        if (!user) {
+          user = User.create({
+            name: profile.name,
+            email: profile.email,
+            imageUrl: profile.image,
+          });
+
+          await user.save();
+        }
+        return true;
+      } catch (err) {
+        return false;
+      }
     },
     async session({ session }) {
+      const user = await User.findOne({ email: session.user.email });
+      session.user._id = user._id;
+
       return session;
     },
   },

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { signIn, getProviders } from "next-auth/react";
 
 import googleIcon from "../../../assets/google-icon.png";
@@ -45,20 +46,21 @@ const signInPage = () => {
   };
 
   return (
-    <section className="w-full h-scree flex justify-center pt-20">
+    <section className="w-full h-scree flex justify-center pt-10">
       <div className="shadow-lg p-5 rounded-md">
         <h3 className="font-semibold text-center text-xl mb-5">Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-5 min-w-[400px]">
             <input
+              name="email"
               onChange={({ target: input }) => setEmail(input.value)}
-              className="px-5 py-3 rounded-md bg-gray-100"
+              className="form_input"
               type="text"
               placeholder="email"
             />
             <input
               onChange={({ target: input }) => setPassword(input.value)}
-              className="px-5 py-3 rounded-md bg-gray-100"
+              className="form_input"
               type="password"
               placeholder="password"
             />
@@ -76,8 +78,8 @@ const signInPage = () => {
         </div>
 
         {providers?.length ? (
-          providers.map((p) => (
-            <div>
+          providers.map((p, index) => (
+            <div key={index}>
               <button
                 className="py-3 px-5 rounded-md border-2 border-black hover:opacity-90 w-full flex justify-center items-center gap-2 font-bold"
                 onClick={() => signIn(p.id)}
@@ -100,6 +102,17 @@ const signInPage = () => {
             </p>
           </div>
         )}
+
+        <div className="mt-20 mb-5">
+          <p className="text-sm text-center text-gray-400">
+            Don't have an account,{" "}
+            <Link href="signUp">
+              <span className="font-bold hover:underline text-black">
+                Sign Up
+              </span>
+            </Link>
+          </p>
+        </div>
       </div>
     </section>
   );

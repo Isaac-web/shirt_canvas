@@ -30,7 +30,7 @@ const FilePicker = ({ onClose }) => {
     e.preventDefault();
 
     if (file) state.fullTextureDecal = await imageToBase64(file);
-    state.isLogoTexture = true;
+    state.isFullTexture = true;
   };
 
   return (
