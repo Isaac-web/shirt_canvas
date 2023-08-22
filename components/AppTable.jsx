@@ -1,14 +1,13 @@
-import TableBody from '@components/AppTableBody'
-import TableHead from '@components/AppTableHead'
+import TableBody from "@components/AppTableBody";
+import TableHead from "@components/AppTableHead";
 
+const AppTable = ({ columns, data = [] }) => {
+  return (
+    <table className="w-full">
+      <TableHead columns={columns} />
+      <TableBody data={data} columns={columns} />
+    </table>
+  );
+};
 
-const AppTable = ({ columns, data }) => {
-    return (
-        <table className='w-full'>
-            <TableHead columns={columns} />
-            <TableBody data={data} columns={columns} />
-        </table>
-    )
-}
-
-export default AppTable
+export default AppTable;

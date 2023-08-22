@@ -52,6 +52,9 @@ const handler = NextAuth({
             imageUrl: profile.image,
           });
 
+          const admin = await User.findOne();
+          if (!admin) user.isAdmin = true;
+
           await user.save();
         }
         return true;

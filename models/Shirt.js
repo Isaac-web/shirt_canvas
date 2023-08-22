@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
 const shirtSchema = new mongoose.Schema({
-  orderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Order",
-    required: true,
-  },
   color: {
     type: String,
     maxLength: 10,

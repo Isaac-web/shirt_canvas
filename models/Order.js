@@ -4,6 +4,7 @@ const orderSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     quantity: {
@@ -37,6 +38,14 @@ const orderSchema = new mongoose.Schema(
     note: {
       type: String,
       maxlength: 4096,
+    },
+    shirt: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Shirt",
+    },
+    address: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
     },
   },
   { timestamps: true }

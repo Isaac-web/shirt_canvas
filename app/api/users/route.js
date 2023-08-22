@@ -22,6 +22,9 @@ export const POST = async (request) => {
 
   user.password = await hashPassword(password);
 
+  const admin = await User.findOne();
+  if (!admin) user.isAdmin = true;
+
   await user.save();
 
   user.password = undefined;

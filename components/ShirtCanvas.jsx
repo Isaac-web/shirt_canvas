@@ -1,24 +1,33 @@
 "use client";
 
-import React, { Suspense } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber';
+import React, { Suspense } from "react";
+import { Decal, useGLTF, useTexture } from "@react-three/drei";
+
+import { Color } from "three";
 
 export default function Shirt(props) {
-    const { nodes, materials } = useGLTF('/shirt_baked-transformed.glb');
-    const { fov } = props;
+  const { shirt } = props;
+  const { nodes, materials } = useGLTF("/shirt_baked-transformed.glb");
 
-    return (
-        <Canvas camera={{ fov: fov || 24 }}>
-            <Suspense fallback={null}>
-                <group {...props} dispose={null}>
-                    <mesh geometry={nodes.T_Shirt_male.geometry} material={materials.lambert1} material-roughness={1} />
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[0.8, 0.4, 0.8]} />
-                </group>
-            </Suspense>
-        </Canvas>
-    )
+  const material = materials.lambert1.clone();
+  const logoDecal = shirt?.logo ? useTexture(shirt.logo) : "";
+  material.color = new Color(shirt?.color);
+
+  return (
+    <Suspense fallback={null}>
+      <group {...props} dispose={null}>
+        <mesh
+          geometry={nodes.T_Shirt_male.geometry}
+          material={material}
+          material-roughness={1}
+        >
+          <Decal position={shirt.logoPosition} scale={0.15} map={logoDecal} />
+        </mesh>
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[0.8, 0.4, 0.8]} />
+      </group>
+    </Suspense>
+  );
 }
 
-useGLTF.preload('/shirt_baked-transformed.glb');
+useGLTF.preload("/shirt_baked-transformed.glb");

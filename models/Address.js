@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema({
-  orderId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Order",
+    ref: "User",
     required: true,
   },
   city: {
