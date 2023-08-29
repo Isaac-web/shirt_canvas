@@ -42,13 +42,10 @@ const LogoEditor = ({ onClose }) => {
     if (snap.logoScale > 0.1) return;
     else if (position === "top") {
       state.logoPosition[1] = 0;
-      state.logoPosition[0] = displacement;
     } else if (position === "middle") {
-      state.logoPosition[1] = -0.1;
-      state.logoPosition[0] = displacement;
+      state.logoPosition[1] = -0.007;
     } else if (position === "down") {
       state.logoPosition[1] = -0.3;
-      state.logoPosition[0] = displacement;
     }
 
     const displacement = 0.08;
