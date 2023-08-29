@@ -4,7 +4,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Installations
 
-run `yarn` to install the packages
+Run the following command to install the the packages for this project.
+
+```bash
+#Using yarn
+yarn
+
+#With npm
+npm install
+```
 
 First, run the development server:
 
