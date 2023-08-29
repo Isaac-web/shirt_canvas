@@ -7,10 +7,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Run the following command to install the the packages for this project.
 
 ```bash
-#Using yarn
-yarn
 
-#With npm
+yarn
+# or
 npm install
 ```
 
