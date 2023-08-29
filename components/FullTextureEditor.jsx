@@ -10,7 +10,7 @@ const FullTextureEditor = ({ onClose }) => {
     <div>
       <div className="w-full p-10 pb-10  rounded-md glassmorphism">
         <div className="flex justify-between items-center mb-5">
-          <h1 className="text-bold font-bold">Texture Design</h1>
+          <h1 className="text-bold font-bold">Texture Editor</h1>
           <button onClick={onClose}>
             <AiOutlineClose size={19} />
           </button>

@@ -40,6 +40,16 @@ const LogoEditor = ({ onClose }) => {
 
   const handleLogoPositionChange = (position) => {
     if (snap.logoScale > 0.1) return;
+    else if (position === "top") {
+      state.logoPosition[1] = 0;
+      state.logoPosition[0] = displacement;
+    } else if (position === "middle") {
+      state.logoPosition[1] = -0.1;
+      state.logoPosition[0] = displacement;
+    } else if (position === "down") {
+      state.logoPosition[1] = -0.3;
+      state.logoPosition[0] = displacement;
+    }
 
     const displacement = 0.08;
     if (position === "left") {
@@ -56,7 +66,7 @@ const LogoEditor = ({ onClose }) => {
   return (
     <div className="flex flex-col gap-3 w-80 p-8 pt-7 rounded-lg glassmorphism">
       <div className="flex justify-between items-center mb-5">
-        <h1 className="text-bold font-bold">Texture Design</h1>
+        <h1 className="text-bold font-bold">Logo Editor</h1>
         <button onClick={onClose}>
           <AiOutlineClose size={19} />
         </button>
@@ -147,6 +157,29 @@ const LogoEditor = ({ onClose }) => {
             onClick={() => handleLogoPositionChange("right")}
           >
             Right
+          </button>
+        </div>
+
+        <div className="flex flex-row justify-between mt-2">
+          <button
+            className="disabled:text-gray-500"
+            disabled={snap.logoScale > 0.1}
+            onClick={() => handleLogoPositionChange("top")}
+          >
+            Top
+          </button>
+          <button
+            className="disabled:text-gray-500"
+            onClick={() => handleLogoPositionChange("middle")}
+          >
+            Middle
+          </button>
+          <button
+            className="disabled:text-gray-500"
+            disabled={snap.logoScale > 0.1}
+            onClick={() => handleLogoPositionChange("down")}
+          >
+            Down
           </button>
         </div>
       </div>

@@ -105,7 +105,7 @@ const signInPage = () => {
 
         <div className="mt-20 mb-5">
           <p className="text-sm text-center text-gray-400">
-            Don't have an account,{" "}
+            Don't have an account?{" "}
             <Link href="signUp">
               <span className="font-bold hover:underline text-black">
                 Sign Up

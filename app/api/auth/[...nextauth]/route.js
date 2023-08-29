@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "@utils/db";
 import User from "@models/User";
-import { verifyPassword } from "@utils/crypt";
 
 const handler = NextAuth({
   providers: [
@@ -25,8 +24,6 @@ const handler = NextAuth({
 
           return true;
         } catch (error) {
-          console.error(error);
-
           return null;
         }
       },

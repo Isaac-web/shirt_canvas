@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { Decal, useGLTF, useTexture } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { Decal, useGLTF, useTexture, Html } from "@react-three/drei";
+import { useFrame, Box } from "@react-three/fiber";
 import { useSnapshot } from "valtio";
 import state from "@store";
 import { easing } from "maath";
@@ -57,6 +57,12 @@ export function Shirt(props) {
             deptWrite={true}
           />
         )}
+
+        {snap.isText && <Html position={snap.textPosition}>
+          <div className="w-full w-32 h-12">
+            <h1 className="font-black text-3xl">{snap.textContent}</h1>
+          </div>
+        </Html>}
       </mesh>
     </group>
   );
